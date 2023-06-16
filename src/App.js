@@ -16,13 +16,15 @@ const TASKS = [
 ];
 
 const App = () => {
+  const [allTasks, setAllTasks] = useState(TASKS);
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>Ada&apos;s Task List</h1>
       </header>
       <main>
-        <div>{<TaskList tasks={TASKS} />}</div>
+        <div>{<TaskList tasks={ allTasks } />}</div>
       </main>
     </div>
   );
