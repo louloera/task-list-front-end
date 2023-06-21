@@ -65,18 +65,28 @@ const updateTaskFunction = (taskId) =>{
 
 
   const deleteTask = (taskId) => {
-    const updatedTasks = allTasks.map(task => {
-      if (taskId !== task.id){
-        return {...task};
+    axios.delete(`https://task-list-api-c17.onrender.com/tasks/${taskId}`).then(
+      (response) => {
+
+        const updatedTasks = allTasks.map(task => {
+          if (taskId !== task.id){
+            return {...task};
+          }
+          
+        });
+    
+        const filteredUpdatedData = updatedTasks.filter(function (element) {
+          return element !== undefined;
+        });
+    
+        setAllTasks(filteredUpdatedData);
+
       }
-      
+    ).catch((error) =>{
+      console.log("error", error);
+
     });
 
-    const filteredUpdatedData = updatedTasks.filter(function (element) {
-      return element !== undefined;
-    });
-
-    setAllTasks(filteredUpdatedData);
   };
 
   return (
