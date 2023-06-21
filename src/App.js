@@ -1,12 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TaskList from './components/TaskList.js';
 import './App.css';
 import { useState } from 'react';
+import axios from 'axios';
 
 
 
 const App = () => {
-  const [allTasks, setAllTasks] = useState(TASKS);
+
+  const [allTasks, setAllTasks] = useState([]);
+
+  useEffect(()=> {
+    axios.get('https://task-list-api-c17.onrender.com/tasks')
+
+    .then((response)=>{
+      const initialTaskData = [];
+      response.data.forEach(task => {
+        console.log(task);
+
+        initialTaskData.push(task);
+
+      });
+      setAllTasks(initialTaskData);
+    })
+    .catch((error)=>{
+      console.log(error);
+    });
+  },[]);
 
   const updateCompletion = (taskId) => {
     const updatedTasks = allTasks.map(task => {
